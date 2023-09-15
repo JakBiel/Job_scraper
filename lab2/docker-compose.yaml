@@ -1,0 +1,30 @@
+version: "3"
+services:
+    postgres-db:
+        image: database_psql:v1
+        ports:
+            - 5430:5432
+    scraper:
+        image: scrapy_app:v1
+        volumes:
+            - ./job_scraper:/job_scraper
+        working_dir: /job_scraper
+        command: bash -c "scrapy crawl nazwa_spidera"
+        environment:
+            - POSTGRES_USER=postgres123
+            - POSTGRES_PASSWORD=pass123
+            - POSTGRES_DB=mydatabase123
+        network_mode: "host"
+        depends_on:
+            - postgres-db
+        restart: on-failure
+    jupyter:
+        image: my_jupyter_notebook:v1
+        environment:
+            - NB_USER=docker_worker
+            - POSTGRES_USER=postgres123
+            - POSTGRES_PASSWORD=pass123
+            - POSTGRES_DB=mydatabase123
+        working_dir: /home/jovyan/notebook
+        ports:
+            - 8888:8888
