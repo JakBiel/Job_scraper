@@ -7,3 +7,5 @@ WORKDIR /JupyterNotebookFolder
 COPY . .
 
 RUN pip install -r requirements.txt
+
+WORKDIR /JupyterNotebookFolder/jpdata

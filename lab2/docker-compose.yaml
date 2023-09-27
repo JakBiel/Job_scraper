@@ -30,7 +30,7 @@ services:
             - database_container1000
         build: ./JupyterNotebookFolder
         volumes:
-            - ./JupyterNotebookFolder:/JupyterNotebookFolder
+            - ./JupyterNotebookFolder/jpdata:/JupyterNotebookFolder/jpdata
         ports:
             - 8888:8888
         networks:
