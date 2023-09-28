@@ -13,7 +13,6 @@ POSTGRESQL_SETTINGS = {
     #'host': 'localhost', #tego używaj, gdy odpalasz spidera z poziomu konsoli
     #'host': '0.0.0.0', #ewentualnie to, gdy używasz docker-compose
     'host': 'database_container1000', #inna opcja awaryjna
-    #'host': '172.17.0.2', #tego używaj, gdy odpalasz spidera z poziomu odrębnego kontenera i gdy znasz adres IP kontenera z PostgreSQL
     'database': os.environ.get('POSTGRES_DB'),
     'user': os.environ.get('POSTGRES_USER'),
     'password': os.environ.get('POSTGRES_PASSWORD'),

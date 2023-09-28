@@ -2,56 +2,7 @@
 #
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
-
-# import scrapy
-# from scrapy.item import Item, Field
-# from scrapy.loader.processors import Compose, TakeFirst
-
-# class JobScraperItem(scrapy.Item):
-#     #STARE PARAMSY
-#     # offer_link = Field()
-#     # offer_name = Field()
-#     # company = Field()
-#     # main_location = Field()
-#     # other_location = Field()
-
-#     def __init__(self, *args, **kwargs):
-#         super(JobScraperItem, self).__init__(*args, **kwargs)
-#         self.strip_fields()
-
-#     def strip_fields(self):
-#         for field_name, field_value in self.items():
-#             if isinstance(field_value, str):
-#                 self[field_name] = field_value.strip('{}').strip()
-
-#     offer_link = Field()
-#     offer_name = Field()
-#     company = Field()
-#     main_location = Field()
-#     other_location = Field()
-#     salary = Field()
-#     salary_type = Field()
-#     main_requirements_description = Field()
-#     main_offer_description = Field()
-#     your_responsibilities = Field()
-#     offer_details = Field()
-#     equipment_supplied = Field()
-#     methodology = Field()
-#     perks_in_the_office = Field()
-#     benefits = Field()
-#     company_info_Founded_in = Field()
-#     company_info_Company_size = Field()
-#     company_info_Main_location = Field()
-#     date_of_scrapping = Field()
-#     when_published_relatively = Field()
-#     categories = Field()
-#     skills_maturity = Field()
-#     tags_mandatory = Field()
-#     tags_nice_to_have = Field()
-
-#     #validator(item_parameter):
-    
-
+  
 import scrapy
 from scrapy.item import Item, Field
 
