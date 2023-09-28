@@ -3,24 +3,24 @@ services:
     database_container1000: #Container for a database to store scrapped data
         build: ./db
         volumes:
-            - ./db:/data
+            - ./db/data:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_DB: ${POSTGRES_DB}
         ports:
             - 5432:5432
-        networks:
-            custom_network:
-                ipv4_address: 172.28.0.5
+        # networks:
+        #     custom_network:
+        #         ipv4_address: 172.28.0.5
     scrappy_app: #Container for a scrappy app scarpping data from crawled webpages
         depends_on:
             - database_container1000
         build: ./job_scraper_app
         restart: on-failure
-        networks:
-            custom_network:
-                ipv4_address: 172.28.0.6
+        # networks:
+        #     custom_network:
+        #         ipv4_address: 172.28.0.6
         environment:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -33,18 +33,18 @@ services:
             - ./JupyterNotebookFolder/jpdata:/JupyterNotebookFolder/jpdata
         ports:
             - 8888:8888
-        networks:
-            custom_network:
-                ipv4_address: 172.28.0.7
+        # networks:
+        #     custom_network:
+        #         ipv4_address: 172.28.0.7
         command: start-notebook.sh --NotebookApp.token=''
         environment:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_DB: ${POSTGRES_DB}
-networks:
-    custom_network:
-        driver: bridge
-        ipam:
-            driver: default
-            config:
-            - subnet: 172.28.0.0/16
+# networks:
+#     custom_network:
+#         driver: bridge
+#         ipam:
+#             driver: default
+#             config:
+#             - subnet: 172.28.0.0/16

@@ -10,10 +10,9 @@
 import os
 
 POSTGRESQL_SETTINGS = {
-    'host': '172.28.0.5',
     #'host': 'localhost', #tego używaj, gdy odpalasz spidera z poziomu konsoli
     #'host': '0.0.0.0', #ewentualnie to, gdy używasz docker-compose
-    #'host': 'database_container1000', #inna opcja awaryjna
+    'host': 'database_container1000', #inna opcja awaryjna
     #'host': '172.17.0.2', #tego używaj, gdy odpalasz spidera z poziomu odrębnego kontenera i gdy znasz adres IP kontenera z PostgreSQL
     'database': os.environ.get('POSTGRES_DB'),
     'user': os.environ.get('POSTGRES_USER'),
@@ -109,3 +108,6 @@ FEED_EXPORT_ENCODING = "utf-8"
 #HTTPCACHE_DIR = "httpcache"
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
+
+
+
