@@ -66,10 +66,10 @@ class NazwaSpideraSpider(scrapy.Spider):
 
         #PONIZEJ MODUL SLUZACY DO CRAWLOWANIA MIEDZY KOLEJNYMI STRONAMI (NIE MYLIC Z CRAWLOWANIEM PO SUBSTRONACH STRONY):
         
-        # next_page = response.xpath("/html/body/nfj-root/nfj-layout/nfj-main-content/div/nfj-postings-search/div/common-main-loader/nfj-search-results/  div/nfj-pagination/ul/li[last()]/a[1]/@href") #tutaj implementujemy, w jaki sposób chcemy zrobić crawling, by scrapować na nowej stronce. Tu - crawling poprzez guziczek ze stronki
+        next_page = response.xpath("/html/body/nfj-root/nfj-layout/nfj-main-content/div/nfj-postings-search/div/common-main-loader/nfj-search-results/  div/nfj-pagination/ul/li[last()]/a[1]/@href") #tutaj implementujemy, w jaki sposób chcemy zrobić crawling, by scrapować na nowej stronce. Tu - crawling poprzez guziczek ze stronki
                
-        # if next_page.get():
-        #     yield response.follow(f'{self.base_url}{next_page.get()}', callback=self.parse)
+        if next_page.get():
+            yield response.follow(f'{self.base_url}{next_page.get()}', callback=self.parse)
 
 
 
