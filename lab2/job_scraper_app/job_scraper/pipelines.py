@@ -28,6 +28,16 @@ class PostgreSQLPipeline:
         self.cursor.close()
         self.connection.close()
 
+    def is_duplicate(self, item):
+        query = """SELECT COUNT(*) FROM new_offers WHERE 
+                   offer_name = %s AND 
+                   salary = %s AND 
+                   salary_type = %s AND 
+                   company = %s"""
+        self.cursor.execute(query, (item['offer_name'], item['salary'], item['salary_type'], item['company']))
+        count = self.cursor.fetchone()[0]
+        return count > 0
+
     def process_item(self, item, spider):
         
         def process_item(key, item):
@@ -66,7 +76,9 @@ class PostgreSQLPipeline:
         for key in keys_to_process:
             item = process_item(key, item)
 
-
+        if self.is_duplicate(item):
+            spider.logger.info(f"Item {item['offer_name']} from {item['company']} is duplicated. Skipping...")
+            return item  # zwróć item, ale nie dodawaj go do bazy, bo to duplikat
 
         insert_query = "INSERT INTO new_offers (offer_link,offer_name,company,main_location,other_location,salary,salary_type,main_requirements_description,main_offer_description,your_responsibilities,offer_details,equipment_supplied,methodology,perks_in_the_office,benefits,company_info_Founded_in,company_info_Company_size,company_info_Main_location,date_of_scrapping,when_published_relatively,categories,skills_maturity,tags_mandatory,tags_nice_to_have) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         
