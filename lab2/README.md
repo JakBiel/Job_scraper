@@ -43,7 +43,7 @@ and:
 
 
 
-- Now, please install Docker package with you installer (I use "pip"): 
+- Now, please install Docker with you installer (I use "pip"): 
 
 ```bash
 pip install docker
