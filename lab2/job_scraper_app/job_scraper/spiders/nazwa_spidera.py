@@ -52,10 +52,12 @@ class NazwaSpideraSpider(scrapy.Spider):
         yield offer_item
 
     def parse(self, response):
-               
-        subpage_links = response.xpath("/html/body/nfj-root/nfj-layout/nfj-main-content/div/nfj-postings-search/div/common-main-loader/nfj-search-results/nfj-postings-list/div[3]//popover-content//a[1]/@href").getall()
-        #Ten kod przechodzi też przez linki regionalne
 
+        #UWAGA: Ten kod przechodzi też przez linki regionalne, ale z drugiej strony w innej części projektu jest filtracja podobnych ofert jeśli chodzi o zarobki
+        subpage_links = response.xpath('/html/body/nfj-root/nfj-layout/nfj-main-content/div/nfj-postings-search/div/div/common-main-loader/nfj-search-results/nfj-postings-list/div[3]//a[1]/@href').getall()
+
+        
+        #ten kod tylko przystosowuje wybrane, nieprzygotowane hiperłącza do odczytu przez parse_subpage(), bo nie wszystkie zaczynają  się od "/"
         for indeks, element in enumerate(subpage_links):
             if not element.startswith("/"):
                 subpage_links[indeks] = "/" + element
@@ -66,9 +68,13 @@ class NazwaSpideraSpider(scrapy.Spider):
 
         #PONIZEJ MODUL SLUZACY DO CRAWLOWANIA MIEDZY KOLEJNYMI STRONAMI (NIE MYLIC Z CRAWLOWANIEM PO SUBSTRONACH STRONY):
         
-        next_page = response.xpath("/html/body/nfj-root/nfj-layout/nfj-main-content/div/nfj-postings-search/div/common-main-loader/nfj-search-results/  div/nfj-pagination/ul/li[last()]/a[1]/@href") #tutaj implementujemy, w jaki sposób chcemy zrobić crawling, by scrapować na nowej stronce. Tu - crawling poprzez guziczek ze stronki
-               
+        #next_page = response.xpath("/html/body/nfj-root/nfj-layout/nfj-main-content/div/nfj-postings-search/div/common-main-loader/nfj-search-results/  div/nfj-pagination/ul/li[last()]/a[1]/@href") #tutaj implementujemy, w jaki sposób chcemy zrobić crawling, by scrapować na nowej stronce. Tu - crawling poprzez guziczek ze stronki
+        next_page = response.xpath("/html/body/nfj-root/nfj-layout/nfj-main-content/div/nfj-postings-search/div/div/common-main-loader/nfj-search-results/div/nfj-pagination/ul/li[last()]/a[1]/@href")
+
+        logging.info(f"Aktualna postać: {next_page}")
+
         if next_page.get():
+            logging.info(f"Następna strona: {next_page}")
             yield response.follow(f'{self.base_url}{next_page.get()}', callback=self.parse)
 
 
