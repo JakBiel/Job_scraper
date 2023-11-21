@@ -41,14 +41,6 @@ and:
 .\my_new_virtual_environment\Scripts\activate
 ```
 
-
-
-- Now, please install Docker with you installer (I use "pip"): 
-
-```bash
-pip install docker
-```
-
 - After that, we will need to download and install a few docker images from the internet. Please execute these 3 commands:
 
 
@@ -108,12 +100,8 @@ lab2
 │       │   __init__.py # Automatically generated file for package code management. Here, it is empty. 
 │       │
 │       ├───spiders # The folder including the created Scrapy spider
-│       │   │   nazwa_spidera.py # The file with the job scrapper Scrapy spider
-│       │   │   __init__.py # Automatically generated file for package code management. Here, it is empty. 
-│       │   │
-│       │   └───__pycache__ # The folder inclues compiled code of programs from .py files of "spiders" folder
-│       │           nazwa_spidera.cpython-310.pyc # Compiled code of program from "nazwa_spidera.py" file
-│       │           __init__.cpython-310.pyc # Compiled code of program from "__init__.py" file. The file doesn't do anything
+│       │   new_offers_spider.py # The file with the job scrapper Scrapy spider
+│       │   __init__.py # Automatically generated file for package code management. Here, it is empty. 
 │       │
 │       └───__pycache__ # The folder inclues compiled code of programs from selected .py files of "job_scraper" folder
 │               pipelines.cpython-310.pyc # Compiled code of program from "pipelines.py" file

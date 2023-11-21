@@ -10,16 +10,13 @@ from pydispatch import dispatcher
 import logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s')
 
-class NazwaSpideraSpider(scrapy.Spider):
-    name = 'nazwa_spidera'
+class NewOffersSpider(scrapy.Spider):
+    name = 'new_offers_spider'
     allowed_domains = ['https://nofluffjobs.com','nofluffjobs.com']
     base_url = 'https://nofluffjobs.com'
     start_urls = ['https://nofluffjobs.com/pl/Python?gclid=Cj0KCQjwiIOmBhDjARIsAP6YhSV2DGRihkNNThMktarn4I_6FTXFx85xJBRx2HS64Xh3NlE6xWvHk3EaAnFlEALw_wcB&page=1']
 
     page = 1  # Numer strony startowej
-
-    iterator_wiadomosci = 0
-    iterator_sublinkow = 0
 
     def parse_subpage(self, response):
 

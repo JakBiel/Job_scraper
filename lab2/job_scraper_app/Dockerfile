@@ -11,4 +11,4 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD [ "scrapy", "crawl", "nazwa_spidera" ]
+CMD [ "scrapy", "crawl", "new_offers_spider" ]
