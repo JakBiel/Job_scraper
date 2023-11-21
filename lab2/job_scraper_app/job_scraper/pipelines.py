@@ -38,7 +38,7 @@ class PostgreSQLPipeline:
         count = self.cursor.fetchone()[0]
         return count > 0
     
-    def validation_of_item(key, item):
+    def validation_of_item(self, key, item):
         if item.get(key):
             if isinstance(item[key], list):
                 item[key] = ', '.join([tag.strip() for tag in item[key] if tag.strip()])
@@ -75,7 +75,7 @@ class PostgreSQLPipeline:
             ]
         
         for key in keys_to_process:
-            item = self.validation_of_item(key, item)
+            self.validation_of_item(key, item)
 
         if self.is_duplicate(item):
             spider.logger.info(f"Item {item['offer_name']} from {item['company']} is duplicated. Skipping...")
