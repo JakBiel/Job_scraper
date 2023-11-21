@@ -68,8 +68,8 @@ class PostgreSQLPipeline:
             'offer_link', 'offer_name', 'company', 'main_location', 'other_location', 
             'salary', 'salary_type', 'main_requirements_description', 'main_offer_description', 
             'your_responsibilities', 'offer_details', 'equipment_supplied', 'methodology', 
-            'perks_in_the_office', 'benefits', 'company_info_Founded_in', 'company_info_Company_size', 
-            'company_info_Main_location', 'date_of_scrapping', 'when_published_relatively', 
+            'perks_in_the_office', 'benefits', 'company_foundation_year', 'company_size', 
+            'company_head_office_place', 'date_of_scrapping', 'when_published_relatively', 
             'categories', 'skills_maturity', 'tags_mandatory', 'tags_nice_to_have'
             ]
 
@@ -80,9 +80,9 @@ class PostgreSQLPipeline:
             spider.logger.info(f"Item {item['offer_name']} from {item['company']} is duplicated. Skipping...")
             return item  # zwróć item, ale nie dodawaj go do bazy, bo to duplikat
 
-        insert_query = "INSERT INTO new_offers (offer_link,offer_name,company,main_location,other_location,salary,salary_type,main_requirements_description,main_offer_description,your_responsibilities,offer_details,equipment_supplied,methodology,perks_in_the_office,benefits,company_info_Founded_in,company_info_Company_size,company_info_Main_location,date_of_scrapping,when_published_relatively,categories,skills_maturity,tags_mandatory,tags_nice_to_have) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        insert_query = "INSERT INTO new_offers (offer_link,offer_name,company,main_location,other_location,salary,salary_type,main_requirements_description,main_offer_description,your_responsibilities,offer_details,equipment_supplied,methodology,perks_in_the_office,benefits,company_foundation_year,company_size,company_head_office_place,date_of_scrapping,when_published_relatively,categories,skills_maturity,tags_mandatory,tags_nice_to_have) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         
-        data = (item['offer_link'], item['offer_name'], item['company'], item['main_location'], item['other_location'], item['salary'], item['salary_type'], item['main_requirements_description'], item['main_offer_description'], item['your_responsibilities'], item['offer_details'], item['equipment_supplied'], item['methodology'], item['perks_in_the_office'], item['benefits'], item['company_info_Founded_in'], item['company_info_Company_size'], item['company_info_Main_location'], item['date_of_scrapping'], item['when_published_relatively'], item['categories'], item['skills_maturity'], item['tags_mandatory'], item['tags_nice_to_have'])
+        data = (item['offer_link'], item['offer_name'], item['company'], item['main_location'], item['other_location'], item['salary'], item['salary_type'], item['main_requirements_description'], item['main_offer_description'], item['your_responsibilities'], item['offer_details'], item['equipment_supplied'], item['methodology'], item['perks_in_the_office'], item['benefits'], item['company_foundation_year'], item['company_size'], item['company_head_office_place'], item['date_of_scrapping'], item['when_published_relatively'], item['categories'], item['skills_maturity'], item['tags_mandatory'], item['tags_nice_to_have'])
 
         self.cursor.execute(insert_query, data)
         self.connection.commit()
