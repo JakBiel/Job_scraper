@@ -109,7 +109,7 @@ lab2
 │               __init__.cpython-310.pyc # Compiled code of program from "__init__.py" file. The file doesn't do anything
 │
 └───JupyterNotebookFolder # The folder for the JupyterNotebook docker container designed for JupyterNotebook analyzes
-    │   .gitignore # This file excludes from GIT "requirements.txt" file which includes container initialization programs
+    │   requirements.txt # List of programs to be pre-installed in order to correctly execute the whole Jupyter application
     │   Dockerfile # Dockerfile used for the creation of the JupyterNotebook docker container
     │
     └───jpdata
