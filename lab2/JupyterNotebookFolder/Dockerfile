@@ -8,4 +8,6 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
+RUN pip install pandas numpy matplotlib seaborn psycopg2-binary unidecode
+
 WORKDIR /JupyterNotebookFolder/jpdata

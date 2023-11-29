@@ -99,14 +99,9 @@ lab2
 │       │   settings.py # It defines settings about modules like: database container, pipelines, encoding type, bot names etc.
 │       │   __init__.py # Automatically generated file for package code management. Here, it is empty. 
 │       │
-│       ├───spiders # The folder including the created Scrapy spider
-│       │   new_offers_spider.py # The file with the job scrapper Scrapy spider
-│       │   __init__.py # Automatically generated file for package code management. Here, it is empty. 
-│       │
-│       └───__pycache__ # The folder inclues compiled code of programs from selected .py files of "job_scraper" folder
-│               pipelines.cpython-310.pyc # Compiled code of program from "pipelines.py" file
-│               settings.cpython-310.pyc # Compiled code of program from "settings.py" file
-│               __init__.cpython-310.pyc # Compiled code of program from "__init__.py" file. The file doesn't do anything
+│       └───spiders # The folder including the created Scrapy spider
+│           new_offers_spider.py # The file with the job scrapper Scrapy spider
+│           __init__.py # Automatically generated file for package code management. Here, it is empty. 
 │
 └───JupyterNotebookFolder # The folder for the JupyterNotebook docker container designed for JupyterNotebook analyzes
     │   requirements.txt # List of programs to be pre-installed in order to correctly execute the whole Jupyter application

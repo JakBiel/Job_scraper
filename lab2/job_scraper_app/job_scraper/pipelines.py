@@ -38,32 +38,7 @@ class PostgreSQLPipeline:
         count = self.cursor.fetchone()[0]
         return count > 0
     
-    def validation_of_item(self, key, item):
-        if item.get(key):
-            if isinstance(item[key], list):
-                item[key] = ', '.join([tag.strip() for tag in item[key] if tag.strip()])
-                if not item[key]:
-                    item[key] = '<None>'
-            else:
-                item[key] = item[key].strip('{}').strip()
-                if not item[key] or item[key] == '{}':
-                    item[key] = '<None>'
-            if key == 'main_requirements_description' and item[key] != '<None>':
-                item[key] = item[key].replace("Requirements description, ", "").strip()
-            if key == 'main_offer_description' and item[key] != '<None>':
-                item[key] = item[key].replace("Offer description, ", "").strip()
-            if key == 'your_responsibilities' and item[key] != '<None>':
-                item[key] = item[key].replace("Your responsibilities, ", "").strip()
-            if key == 'when_published_relatively' and item[key] != '<None>':
-                item[key] = item[key].replace("This offer was published", "").strip()
-                
-        else:
-            item[key] = '<None>'
-        return item
-
-    def process_item(self, item, spider):
-        
-        insert_query = "INSERT INTO new_offers (offer_link,offer_name,company,main_location,other_location,salary,salary_type,main_requirements_description,main_offer_description,your_responsibilities,offer_details,equipment_supplied,methodology,perks_in_the_office,benefits,company_foundation_year,company_size,company_head_office_place,date_of_scrapping,when_published_relatively,categories,skills_maturity,tags_mandatory,tags_nice_to_have) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    def validation_of_item(self, item):
         
         keys_to_process = [
             'offer_link', 'offer_name', 'company', 'main_location', 'other_location', 
@@ -75,7 +50,32 @@ class PostgreSQLPipeline:
             ]
         
         for key in keys_to_process:
-            self.validation_of_item(key, item)
+            if item.get(key):
+                if isinstance(item[key], list):
+                    item[key] = ', '.join([tag.strip() for tag in item[key] if tag.strip()])
+                    if not item[key]:
+                        item[key] = '<None>'
+                else:
+                    item[key] = item[key].strip('{}').strip()
+                    if not item[key] or item[key] == '{}':
+                        item[key] = '<None>'
+                if key == 'main_requirements_description' and item[key] != '<None>':
+                    item[key] = item[key].replace("Requirements description, ", "").strip()
+                if key == 'main_offer_description' and item[key] != '<None>':
+                    item[key] = item[key].replace("Offer description, ", "").strip()
+                if key == 'your_responsibilities' and item[key] != '<None>':
+                    item[key] = item[key].replace("Your responsibilities, ", "").strip()
+                if key == 'when_published_relatively' and item[key] != '<None>':
+                    item[key] = item[key].replace("This offer was published", "").strip()
+            else:
+                item[key] = '<None>'
+            return item
+
+    def process_item(self, item, spider):
+        
+        insert_query = "INSERT INTO new_offers (offer_link,offer_name,company,main_location,other_location,salary,salary_type,main_requirements_description,main_offer_description,your_responsibilities,offer_details,equipment_supplied,methodology,perks_in_the_office,benefits,company_foundation_year,company_size,company_head_office_place,date_of_scrapping,when_published_relatively,categories,skills_maturity,tags_mandatory,tags_nice_to_have) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        
+        self.validation_of_item(item)
 
         if self.is_duplicate(item):
             spider.logger.info(f"Item {item['offer_name']} from {item['company']} is duplicated. Skipping...")
