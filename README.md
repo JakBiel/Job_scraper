@@ -70,7 +70,7 @@ localhost:8888
 
 - This command will open the container's content that includes JupiterFileKuba.ipynb file with the scrapped data analyze. In order to check the results of the analyze in the browser tab, please click on the "Run" tab of the displayed page and choose the suboption of "Run All Cells"
 
-![IMG IPYNB1](https://github.com/JakBiel/README_img/blob/main/jupyter_scr.PNG)
+![IMG IPYNB1](img/jupyter_scr.png)
 
 - The step above will generate plots with various analysis of the data.
 
